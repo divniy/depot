@@ -50,6 +50,18 @@ class LineItemsControllerTest < ActionController::TestCase
     assert_redirected_to line_item_path(assigns(:line_item))
   end
 
+  test "should destroy line_item with decrease" do
+    2.times { post :create, product_id: products(:ruby).id }
+    @line_item = LineItem.last
+    assert_no_difference 'LineItem.count' do
+      post :decrease, id: @line_item
+    end
+    assert_difference 'LineItem.count', -1 do
+      post :decrease, id: @line_item
+    end
+    assert_redirected_to store_path
+  end
+
   test "should destroy line_item" do
     assert_difference('LineItem.count', -1) do
       delete :destroy, id: @line_item

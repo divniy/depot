@@ -71,6 +71,20 @@ class LineItemsController < ApplicationController
     end
   end
 
+  # POST /line_items/1/decrease
+  def decrease
+    @cart = current_cart
+    @line_item = @cart.decrease_line_item(params[:id])
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_url }
+        format.js { @current_item = @line_item }
+      else
+        format.html { redirect_to store_url, notice: "Cant decrease this item"}
+      end
+    end
+  end
+
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
