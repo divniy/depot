@@ -47,4 +47,14 @@ class CartsControllerTest < ActionController::TestCase
 
     assert_redirected_to store_path
   end
+
+  test "should destroy cart via AJAX" do
+    assert_difference('Cart.count', -1) do
+      session[:cart_id] = @cart.id
+      xhr :delete, :destroy, id: @cart
+    end
+
+    assert_response :success
+    assert_nil session[:cart_id]
+  end
 end
