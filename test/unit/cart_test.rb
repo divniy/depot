@@ -5,11 +5,12 @@ class CartTest < ActiveSupport::TestCase
   #   assert true
   # end
   test "decrease line_item" do
-    @cart = carts(:one)
-    2.times do
-      @line_item = @cart.add_product(products(:ruby).id)
-      @line_item.save!
-    end
+    @cart = carts(:two)
+    #2.times do
+    #  @line_item = @cart.add_product(products(:ruby).id)
+    #  @line_item.save!
+    #end
+    @line_item = line_items(:two)
 
     @cart.decrease_line_item(@line_item.id).save!
     assert_equal @cart.line_items.find(@line_item.id).quantity, 1

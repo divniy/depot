@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
   <%= @order.name %>
@@ -18,6 +16,10 @@
 <p>
   <b>Pay type:</b>
   <%= @order.pay_type %>
+</p>
+
+<p>
+  <%= render @order.line_items, :file => '_line_item.text.erb' %>
 </p>
 
 

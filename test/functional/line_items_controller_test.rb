@@ -51,11 +51,11 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should destroy line_item with decrease" do
-    cart = Cart.create
+    cart = carts(:two)
     session[:cart_id] = cart.id
-    @line_item = LineItem.create(cart: cart, product: products(:ruby), quantity: 2)
+    @line_item = line_items(:two)
 
-    assert_difference 'LineItem.last.quantity', -1 do
+    assert_difference 'LineItem.find(@line_item.id).quantity', -1 do
       post :decrease, id: @line_item
     end
     assert_difference 'LineItem.count', -1 do
